@@ -1,0 +1,196 @@
+.lettre
+{
+    display: inline;
+    padding: 0.5vw;
+    font-size : 3vw;
+    color: white;
+    font-weight: 500;
+}
+
+.active
+{
+    color: #f4ac46 !important;
+}
+#alpha
+{
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    position: absolute;
+    width: 100%;
+}
+
+#container
+{
+    margin: 0 auto;
+    text-align: center;
+    background-color: #297373;
+}
+
+a i
+{
+    font-size: 5vw !important;
+}
+
+a
+{
+    display: block;
+    padding: 20px;
+}
+
+a:hover
+{
+    color: red;
+}
+
+#next, #previous
+{
+    background-color: transparent;
+    margin-top: 65vh;
+    transform: translateY(-65%);
+    transition: .2s;
+    height: 75px;
+    width: 105px;
+    background-repeat: no-repeat !important;
+    transition: .2s;
+}
+
+#next
+{
+    float: right;
+    background: url("../images/right.svg");
+}
+#next:hover
+{
+
+    background: url("../images/right_pressed.svg");
+}
+
+#previous
+{
+    float: left;
+    background: url("../images/left.svg");
+}
+#previous:hover
+{
+    background: url("../images/left_pressed.svg");
+}
+
+#left
+{
+    float: left;
+    left: 5%;
+    top: 5%;
+    position: relative;
+}
+
+#right
+{
+    float: right;
+    right: 5%;
+    top: 5%;
+    position: relative;
+}
+
+#full_answer
+{
+    transform: translateY(-10%);
+    text-transform: uppercase;
+    font-size: 4vw;
+    margin: 10vh auto 0 auto;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+}
+
+#result
+{
+    transform: translateY(-65%);
+    text-transform: uppercase;
+    font-size: 4vw;
+    margin: 65vh auto 0 auto;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+}
+
+#discard
+{
+  background: url("../images/button1.svg");
+
+}
+
+#discard:hover
+{
+  background: url("../images/button1_pressed.svg");
+
+}
+
+#stop
+{
+  background: url("../images/button2.svg");
+
+}
+
+#stop:hover
+{
+  background: url("../images/button2_pressed.svg");
+
+}
+
+#flag
+{
+  background: url("../images/button3.svg");
+
+}
+
+#flag:hover
+{
+  background: url("../images/button3_pressed.svg");
+
+}
+
+#ok
+{
+  background: url("../images/button4.svg");
+
+}
+
+#ok:hover
+{
+  background: url("../images/button4_pressed.svg");
+
+}
+
+#discard, #stop, #flag, #ok
+{
+  background-repeat: no-repeat;
+  transition: .2s;
+  height: 75px;
+  width: 105px;
+  margin-bottom: 10px;
+}
+#discard:hover, #stop:hover, #flag:hover, #ok:hover
+{
+  background-repeat: no-repeat;
+  transition: .2s;
+}
+
+#previous:active
+{
+  margin-left: 10px;
+}
+
+#next:active
+{
+  margin-right: 10px;
+}
+
+#flag:active, #ok:active
+{
+  transform: translateX(10px);
+}
+
+#discard:active, #stop:active
+{
+  transform: translateX(-10px);
+}
