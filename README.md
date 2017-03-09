@@ -6,3 +6,5 @@ First install npm (node packet manager). Then run:
 npm install
 npm start
 ```
+
+![Screenshot](screenshot.png)
