@@ -1,0 +1,15 @@
+{
+    "name": "DicotomixUI",
+    "version": "1.0.0",
+    "description": "Dicotomix UI",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron ."
+    },
+    "repository": "https://github.com/Dicotomix/DicotomixNewUI",
+    "author": "Dicotomix Team",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "^1.4.1"
+    }
+}
