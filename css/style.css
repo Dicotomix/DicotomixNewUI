@@ -91,21 +91,31 @@ a:hover
     position: relative;
 }
 
+#header
+{
+  margin: 10vh auto 0 auto;
+  width: 100%;
+  position: absolute;
+}
+
 #full_answer
 {
-    transform: translateY(-10%);
-    text-transform: uppercase;
-    font-size: 4vw;
-    margin: 10vh auto 0 auto;
-    width: 100%;
-    position: absolute;
-    text-align: center;
+  transform: translateY(-10%);
+  font-size: 4vw;
+  margin: 0 auto;
+  width: 80%;
+  position: relative;
+  text-align: center;
+}
+
+#full_answer::first-letter
+{
+  text-transform: capitalize;
 }
 
 #result
 {
     transform: translateY(-65%);
-    text-transform: uppercase;
     font-size: 4vw;
     margin: 65vh auto 0 auto;
     width: 100%;
