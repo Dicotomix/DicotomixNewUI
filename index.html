@@ -8,56 +8,40 @@
     </head>
     <body>
         <div id="header">
-            <div id="full_answer"></div>
+            <div id="sentence"></div>
         </div>
 
         <div id="alpha">
             <div id="container">
-                <div class="lettre" id="a">A</div>
-                <div class="lettre active" id="b">B</div>
-                <div class="lettre" id="c">C</div>
-                <div class="lettre" id="d">D</div>
-                <div class="lettre" id="e">E</div>
-                <div class="lettre" id="f">F</div>
-                <div class="lettre" id="g">G</div>
-                <div class="lettre" id="h">H</div>
-                <div class="lettre" id="i">I</div>
-                <div class="lettre" id="j">J</div>
-                <div class="lettre" id="k">K</div>
-                <div class="lettre" id="l">L</div>
-                <div class="lettre" id="m">M</div>
-                <div class="lettre" id="n">N</div>
-                <div class="lettre" id="o">O</div>
-                <div class="lettre" id="p">P</div>
-                <div class="lettre" id="q">Q</div>
-                <div class="lettre" id="r">R</div>
-                <div class="lettre" id="s">S</div>
-                <div class="lettre" id="t">T</div>
-                <div class="lettre" id="u">U</div>
-                <div class="lettre" id="v">V</div>
-                <div class="lettre" id="w">W</div>
-                <div class="lettre" id="x">X</div>
-                <div class="lettre" id="y">Y</div>
-                <div class="lettre" id="z">Z</div>
+                <!-- will be filled by the script below -->
             </div>
         </div>
 
-        <div id="result"></div>
+        <div id="current-word"></div>
 
         <section id="left">
-            <a id="stop"></a>
-            <a id="discard"></a>
+            <a id="discard-word"></a>
+            <a id="delete-word"></a>
         </section>
 
         <section id="right">
-            <a id="flag"></a>
-            <a id="ok"></a>
+            <a id="restart"></a>
+            <a id="validate"></a>
         </section>
 
-        <a id="next"></a>
-        <a id="previous"></a>
+        <a id="next-word"></a>
+        <a id="previous-word"></a>
 
-        <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
-        <script type="text/javascript" src="js/script.js"></script>
+        <script>
+            require('./js/jquery-3.1.1.min.js')
+
+            // fill alpha container
+            for (var l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
+                document.getElementById('container').innerHTML +=
+                    '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
+            }
+
+            require('./renderer.js')
+        </script>
     </body>
 </html>

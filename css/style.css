@@ -1,4 +1,14 @@
-.lettre
+@font-face
+{
+	font-family: Raleway;
+	src: url(../fonts/Raleway-SemiBold.ttf);
+}
+
+*
+{
+    font-family: Raleway;
+}
+.letter
 {
     display: inline;
     padding: 0.5vw;
@@ -11,6 +21,7 @@
 {
     color: #f4ac46 !important;
 }
+
 #alpha
 {
     margin-top: 50vh;
@@ -42,7 +53,7 @@ a:hover
     color: red;
 }
 
-#next, #previous
+#next-word, #previous-word
 {
     background-color: transparent;
     margin-top: 65vh;
@@ -54,23 +65,24 @@ a:hover
     transition: .2s;
 }
 
-#next
+#next-word
 {
     float: right;
     background: url("../images/right.svg");
 }
-#next:hover
+
+#next-word:hover
 {
 
     background: url("../images/right_pressed.svg");
 }
 
-#previous
+#previous-word
 {
     float: left;
     background: url("../images/left.svg");
 }
-#previous:hover
+#previous-word:hover
 {
     background: url("../images/left_pressed.svg");
 }
@@ -98,7 +110,7 @@ a:hover
   position: absolute;
 }
 
-#full_answer
+#sentence
 {
   transform: translateY(-10%);
   font-size: 4vw;
@@ -113,7 +125,7 @@ a:hover
   text-transform: capitalize;
 }
 
-#result
+#current-word
 {
     transform: translateY(-65%);
     font-size: 4vw;
@@ -123,55 +135,55 @@ a:hover
     text-align: center;
 }
 
-#discard
+#discard-word
 {
   background: url("../images/button1.svg");
 
 }
 
-#discard:hover
+#discard-word:hover
 {
   background: url("../images/button1_pressed.svg");
 
 }
 
-#stop
+#delete-word
 {
   background: url("../images/button2.svg");
 
 }
 
-#stop:hover
+#delete-word:hover
 {
   background: url("../images/button2_pressed.svg");
 
 }
 
-#flag
+#restart
 {
   background: url("../images/button3.svg");
 
 }
 
-#flag:hover
+#restart:hover
 {
   background: url("../images/button3_pressed.svg");
 
 }
 
-#ok
+#validate
 {
   background: url("../images/button4.svg");
 
 }
 
-#ok:hover
+#validate:hover
 {
   background: url("../images/button4_pressed.svg");
 
 }
 
-#discard, #stop, #flag, #ok
+#delete-word, #discard-word, #restart, #validate
 {
   background-repeat: no-repeat;
   transition: .2s;
@@ -179,28 +191,29 @@ a:hover
   width: 105px;
   margin-bottom: 10px;
 }
-#discard:hover, #stop:hover, #flag:hover, #ok:hover
+
+#delete-word:hover, #discard-word:hover, #restart:hover, #validate:hover
 {
   background-repeat: no-repeat;
   transition: .2s;
 }
 
-#previous:active
+#previous-word:active
 {
   margin-left: 10px;
 }
 
-#next:active
+#next-word:active
 {
   margin-right: 10px;
 }
 
-#flag:active, #ok:active
+#restart:active, #validate:active
 {
   transform: translateX(10px);
 }
 
-#discard:active, #stop:active
+#delete-word:active, #discard-word:active
 {
   transform: translateX(-10px);
 }
