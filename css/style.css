@@ -1,3 +1,13 @@
+@font-face
+{
+	font-family: Raleway;
+	src: url(../fonts/Raleway-Black.ttf);
+}
+
+*
+{
+    font-family: Raleway;
+}
 .letter
 {
     display: inline;
