@@ -4,17 +4,50 @@
 	src: url(../fonts/Raleway-SemiBold.ttf);
 }
 
-*
-{
+body {
     font-family: Raleway;
 }
+
+/* button colors: f4ac46 (orange), 292f36 (black), 297373 (blue) */
+
+
+#top-part           { height: 55vh; overflow: auto; }
+#alphabet-container { height: 10vh; margin-top: 2vh; }
+#bottom-part        { max-height: 26vh; margin-top: 2vh;  }
+
+#alphabet
+{
+    word-wrap: break-word;
+    background-color: #297373;
+}
+
+#sentence, #current-word, #alphabet
+{
+  font-size: calc(12px + 2.5vw);
+  text-align: center;
+}
+
+#sentence {
+    max-height: 100%;
+    overflow: auto;
+    border: 0;
+    outline: 0;
+}
+
+/*#sentence::first-letter {
+    text-transform: capitalize;
+}*/
+
+#current-word {
+    margin: 10px 0;
+    padding: 1vw;
+}
+
 .letter
 {
-    display: inline;
+    display: inline-block;
     padding: 0.5vw;
-    font-size : 3vw;
     color: white;
-    font-weight: 500;
 }
 
 .active
@@ -22,198 +55,52 @@
     color: #f4ac46 !important;
 }
 
-#alpha
-{
-    margin-top: 50vh;
-    transform: translateY(-50%);
-    position: absolute;
-    width: 100%;
-}
-
-#container
-{
-    margin: 0 auto;
-    text-align: center;
-    background-color: #297373;
-}
-
-a i
-{
-    font-size: 5vw !important;
-}
-
 a
 {
-    display: block;
-    padding: 20px;
+    margin: 10px 0;
+    height: 10vw;
+    min-height: 50px !important;
+    max-height: 100px !important;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    cursor: pointer;
+    transition: .2s;
 }
 
 a:hover
 {
-    color: red;
-}
-
-#next-word, #previous-word
-{
-    background-color: transparent;
-    margin-top: 65vh;
-    transform: translateY(-65%);
     transition: .2s;
-    height: 75px;
-    width: 105px;
-    background-repeat: no-repeat !important;
-    transition: .2s;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
-#next-word
-{
-    float: right;
-    background: url("../images/right.svg");
+.button-left {
+    background-position: left 30% center;
+}
+.button-left:hover {
+    background-position: left;
 }
 
-#next-word:hover
-{
 
-    background: url("../images/right_pressed.svg");
+
+.button-right {
+    background-position: right 30% center;
+}
+.button-right:hover {
+    background-position: right;
 }
 
-#previous-word
-{
-    float: left;
-    background: url("../images/left.svg");
-}
-#previous-word:hover
-{
-    background: url("../images/left_pressed.svg");
-}
+#discard-word       { background-image: url("../images/button1.svg"); }
+#discard-word:hover { background-image: url("../images/button1_pressed.svg"); }
+#delete-word        { background-image: url("../images/button2.svg"); }
+#delete-word:hover  { background-image: url("../images/button2_pressed.svg"); }
+#restart            { background-image: url("../images/button3.svg"); }
+#restart:hover      { background-image: url("../images/button3_pressed.svg"); }
+#validate           { background-image: url("../images/button4.svg"); }
+#validate:hover     { background-image: url("../images/button4_pressed.svg"); }
 
-#left
-{
-    float: left;
-    left: 5%;
-    top: 5%;
-    position: relative;
-}
-
-#right
-{
-    float: right;
-    right: 5%;
-    top: 5%;
-    position: relative;
-}
-
-#header
-{
-  margin: 10vh auto 0 auto;
-  width: 100%;
-  position: absolute;
-}
-
-#sentence
-{
-  transform: translateY(-10%);
-  font-size: 4vw;
-  margin: 0 auto;
-  width: 80%;
-  position: relative;
-  text-align: center;
-}
-
-#full_answer::first-letter
-{
-  text-transform: capitalize;
-}
-
-#current-word
-{
-    transform: translateY(-65%);
-    font-size: 4vw;
-    margin: 65vh auto 0 auto;
-    width: 100%;
-    position: absolute;
-    text-align: center;
-}
-
-#discard-word
-{
-  background: url("../images/button1.svg");
-
-}
-
-#discard-word:hover
-{
-  background: url("../images/button1_pressed.svg");
-
-}
-
-#delete-word
-{
-  background: url("../images/button2.svg");
-
-}
-
-#delete-word:hover
-{
-  background: url("../images/button2_pressed.svg");
-
-}
-
-#restart
-{
-  background: url("../images/button3.svg");
-
-}
-
-#restart:hover
-{
-  background: url("../images/button3_pressed.svg");
-
-}
-
-#validate
-{
-  background: url("../images/button4.svg");
-
-}
-
-#validate:hover
-{
-  background: url("../images/button4_pressed.svg");
-
-}
-
-#delete-word, #discard-word, #restart, #validate
-{
-  background-repeat: no-repeat;
-  transition: .2s;
-  height: 75px;
-  width: 105px;
-  margin-bottom: 10px;
-}
-
-#delete-word:hover, #discard-word:hover, #restart:hover, #validate:hover
-{
-  background-repeat: no-repeat;
-  transition: .2s;
-}
-
-#previous-word:active
-{
-  margin-left: 10px;
-}
-
-#next-word:active
-{
-  margin-right: 10px;
-}
-
-#restart:active, #validate:active
-{
-  transform: translateX(10px);
-}
-
-#delete-word:active, #discard-word:active
-{
-  transform: translateX(-10px);
-}
+#next-word          { background-image: url("../images/right.svg"); }
+#next-word:hover    { background-image: url("../images/right_pressed.svg"); }
+#previous-word      { background-image: url("../images/left.svg"); }
+#previous-word:hover{ background-image: url("../images/left_pressed.svg"); }/* */
