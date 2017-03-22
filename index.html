@@ -33,10 +33,10 @@
         <a id="previous-word"></a>
 
         <script>
-            require('./js/jquery-3.1.1.min.js')
+            window.$ = window.jQuery = require('jquery');
 
             // fill alpha container
-            for (var l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
+            for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
                 document.getElementById('container').innerHTML +=
                     '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
             }

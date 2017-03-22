@@ -2,8 +2,8 @@
 const BEGIN_SPECIAL_STYLE = "<font color='#33cc33'>";
 const END_SPECIAL_STYLE = "</font>";
 
-const network = require("./network.js")
-const diacritics = require("./diacritics.js")
+const network = require('./network.js')
+const diacritics = require('./diacritics.js')
 
 class Renderer {
     constructor(dom, port, address) {
@@ -69,9 +69,9 @@ class Renderer {
     }
 
     get currentSentence() {
-        var sentence = ''
+        let sentence = ''
 
-        for (var i = 0; i < this.words.length - 1; ++i) {
+        for (let i = 0; i < this.words.length - 1; ++i) {
             if (i > 0)
                 sentence += ' '
             sentence += this.words[i]
@@ -92,7 +92,7 @@ class Renderer {
             this.dom.getElementById(this.activeLetter).className = "letter"
         }
 
-        var withoutDiacritics = diacritics.removeDiacritics(this.words[this.words.length - 1])
+        let withoutDiacritics = diacritics.removeDiacritics(this.words[this.words.length - 1])
         console.log('withoutDiacritics: ' + withoutDiacritics)
         this.activeLetter = this.prefixSize >= withoutDiacritics.length ?
             -1 : withoutDiacritics[this.prefixSize]
@@ -104,5 +104,21 @@ class Renderer {
     }
 }
 
-var handler = new Renderer(document, 5005, '127.0.0.1')
+let handler = new Renderer(document, 5005, '127.0.0.1')
 handler.start()
+
+function getIdByKey(key) {
+    if (key == 37)
+        return '#previous-word'
+    else if (key == 39)
+        return '#next-word'
+    else
+        return null
+}
+
+
+document.onkeyup = (evt) => {
+    let key = evt.which || evt.keyCode
+    if (id = getIdByKey(key))
+        document.getElementById(id).click()
+}
