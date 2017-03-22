@@ -7,39 +7,55 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-        <div id="header">
-            <div id="sentence"></div>
+        <div class="container-fluid">
+            <section id="top-part" class="row">
+                <div class="col-xs-12 col-sm-8 col-sm-push-2" id="sentence" contenteditable spellcheck="false"></div>
+
+                <nav class="col-xs-6 col-sm-2 col-sm-pull-8">
+                    <div class="row">
+                        <a id="discard-word" class="col-xs-12 button-left"></a>
+                        <a id="delete-word" class="col-xs-12 button-left"></a>
+                    </div>
+                </nav>
+                <nav class="col-xs-6 col-sm-2">
+                    <div class="row">
+                        <a id="restart" class="col-xs-12 button-right"></a>
+                        <a id="validate" class="col-xs-12 button-right"></a>
+                    </div>
+                </nav>
+
+
+            </section>
+
+            <section id="alphabet-container" class="row">
+                <div id="alphabet">
+                    <!-- will be filled by the script below -->
+                </div>
+            </section>
+
+            <section id="bottom-part" class="row">
+                <div id="current-word" class="col-xs-12 col-sm-8 col-sm-push-2"></div>
+                <a id="previous-word" class="col-xs-6 col-sm-2 col-sm-pull-8 button-left"></a>
+                <a id="next-word" class="col-xs-6 col-sm-2 button-right"></a>
+            </section>
         </div>
-
-        <div id="alpha">
-            <div id="container">
-                <!-- will be filled by the script below -->
-            </div>
-        </div>
-
-        <div id="current-word"></div>
-
-        <section id="left">
-            <a id="discard-word"></a>
-            <a id="delete-word"></a>
-        </section>
-
-        <section id="right">
-            <a id="restart"></a>
-            <a id="validate"></a>
-        </section>
-
-        <a id="next-word"></a>
-        <a id="previous-word"></a>
 
         <script>
             window.$ = window.jQuery = require('jquery');
 
             // fill alpha container
+            document.getElementById('alphabet').innerHTML = "";
             for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
                 document.getElementById('container').innerHTML +=
                     '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
             }
+
+            /* réécrivable plus joliment avec jQuery
+               (mais l'importation a pas l'air de marcher)
+            $("#alphabet").html("");
+            for (var l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1))
+                $("#alphabet").append('<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>');
+            */
 
             require('./renderer.js')
         </script>

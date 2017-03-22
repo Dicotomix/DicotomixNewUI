@@ -11,6 +11,7 @@ let mainWindow
 
 function createWindow() {
     mainWindow = new BrowserWindow({ width: 1200, height: 600 })
+    mainWindow.maximize()
 
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'index.html'),
