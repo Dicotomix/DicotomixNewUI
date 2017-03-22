@@ -3,7 +3,6 @@
         <title>Dicotomix</title>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
@@ -24,7 +23,6 @@
                     </div>
                 </nav>
 
-
             </section>
 
             <section id="alphabet-container" class="row">
@@ -44,18 +42,12 @@
             window.$ = window.jQuery = require('jquery');
 
             // fill alpha container
-            document.getElementById('alphabet').innerHTML = "";
+            $('#alphabet').html('');
             for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
-                document.getElementById('container').innerHTML +=
+                $('#alphabet').append(
                     '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
+                )
             }
-
-            /* réécrivable plus joliment avec jQuery
-               (mais l'importation a pas l'air de marcher)
-            $("#alphabet").html("");
-            for (var l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1))
-                $("#alphabet").append('<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>');
-            */
 
             require('./renderer.js')
         </script>

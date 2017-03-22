@@ -6,10 +6,8 @@ const network = require('./network.js')
 const diacritics = require('./diacritics.js')
 
 class Renderer {
-    constructor(dom, port, address) {
+    constructor(port, address) {
         this.client = new network.Client(port, address)
-
-        this.dom = dom
 
         this.words = [''] // this.words last element is always the string displayed in current-word
         this.prefixSize = 0
@@ -22,31 +20,31 @@ class Renderer {
             (word, prefix) => { this.wordReceived(word, prefix) } // receive callback
         )
 
-        this.dom.getElementById('next-word').addEventListener('click', () => {
+        $('#next-word').on('click', () => {
             this.client.requestWord(network.WordRequest.RIGHT)
         })
 
-        this.dom.getElementById('previous-word').addEventListener('click', () => {
+        $('#previous-word').on('click', () => {
             this.client.requestWord(network.WordRequest.LEFT)
         })
 
-        this.dom.getElementById('discard-word').addEventListener('click', () => {
+        $('#discard-word').on('click', () => {
             this.client.requestWord(network.WordRequest.DISCARD)
         })
 
-        this.dom.getElementById('delete-word').addEventListener('click', () => {
+        $('#delete-word').on('click', () => {
             if (this.words.length > 1) {
                 this.words.pop()
             }
             this.client.requestWord(network.WordRequest.MIDDLE)
         })
 
-        this.dom.getElementById('restart').addEventListener('click', () => {
+        $('#restart').on('click', () => {
             this.words = ['']
             this.client.requestWord(network.WordRequest.MIDDLE)
         })
 
-        this.dom.getElementById('validate').addEventListener('click', () => {
+        $('#validate').on('click', () => {
             this.words.push('')
             this.client.requestWord(network.WordRequest.MIDDLE)
         })
@@ -84,12 +82,12 @@ class Renderer {
     }
 
     updateDOM() {
-        this.dom.getElementById('current-word').innerHTML = this.currentWord
-        this.dom.getElementById('sentence').innerHTML = this.currentSentence
+        $('#current-word').html(this.currentWord)
+        $('#sentence').html(this.currentSentence)
 
         // clear last active letter
         if (this.activeLetter !== -1) {
-            this.dom.getElementById(this.activeLetter).className = "letter"
+            $('#' + this.activeLetter).attr('class', 'letter')
         }
 
         let withoutDiacritics = diacritics.removeDiacritics(this.words[this.words.length - 1])
@@ -99,19 +97,21 @@ class Renderer {
 
         // set new active letter
         if (this.activeLetter !== -1) {
-            this.dom.getElementById(this.activeLetter).className = "letter active"
+            $('#' + this.activeLetter).attr('class', 'letter active')
         }
     }
 }
 
-let handler = new Renderer(document, 5005, '127.0.0.1')
+let handler = new Renderer(5005, '127.0.0.1')
 handler.start()
 
 function getIdByKey(key) {
-    if (key == 37)
+    if (key == 37) // left arrow
         return '#previous-word'
-    else if (key == 39)
+    else if (key == 39) // right arrow
         return '#next-word'
+    else if (key == 32) // space
+        return '#validate'
     else
         return null
 }
@@ -119,6 +119,8 @@ function getIdByKey(key) {
 
 document.onkeyup = (evt) => {
     let key = evt.which || evt.keyCode
-    if (id = getIdByKey(key))
-        document.getElementById(id).click()
+    console.log(key)
+    let id = getIdByKey(key)
+    if (id)
+        $(id)[0].click()
 }
