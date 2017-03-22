@@ -52,7 +52,9 @@ class Renderer {
 
     wordReceived(word, prefix) {
         this.prefixSize = prefix
-        this.words[this.words.length - 1] = word
+        let list = word.split('\n')
+        console.log('Received: ' + list.join(';'))
+        this.words[this.words.length - 1] = list[0]
         this.updateDOM()
     }
 
