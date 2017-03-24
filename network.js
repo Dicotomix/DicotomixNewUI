@@ -1,7 +1,6 @@
 const Step = {
-    LENGTH: 0,
-    WORD: 1,
-    PREFIX: 2,
+    HEADER: 0,
+    DATA: 1,
 }
 
 /*
@@ -12,23 +11,24 @@ const Step = {
 }
 */
 
-// first state: waiting for the length (in bytes) of the requested word, int32 big endian
-class StateLength {
+// first state: waiting for the header, two int32 big endian
+class StateHeader {
     constructor() { }
 
     get bufferLen() {
-        return 4
+        return 8
     }
 
     get step() {
-        return Step.LENGTH
+        return Step.HEADER
     }
 }
 
-// second state: waiting for the requested word itself, string[0..len] utf8
-class StateWord {
-    constructor(len) {
+// second state: waiting for the requested words, string[0..len] utf8
+class StateData {
+    constructor(len, prefix) {
         this.len = len
+        this.prefix = prefix
     }
 
     get bufferLen() {
@@ -36,22 +36,7 @@ class StateWord {
     }
 
     get step() {
-        return Step.WORD
-    }
-}
-
-// third state: waiting for the known prefix size, int32 big endian
-class StatePrefix {
-    constructor(word) {
-        this.word = word
-    }
-
-    get bufferLen() {
-        return 4
-    }
-
-    get step() {
-        return Step.PREFIX
+        return Step.DATA
     }
 }
 
@@ -70,7 +55,7 @@ class Client {
         this.port = port
         this.address = address
 
-        this.stateMachine = new StateLength()
+        this.stateMachine = new StateHeader()
     }
 
     start(connectCallback, receiveCallback) {
@@ -86,16 +71,14 @@ class Client {
         this.client.on('readable', () => {
             let buffer
             while (null !== (buffer = this.client.read(this.stateMachine.bufferLen))) {
-                if (this.stateMachine.step == Step.LENGTH) {
+                if (this.stateMachine.step == Step.HEADER) {
                     let len = buffer.readInt32BE()
-                    this.stateMachine = new StateWord(len)
-                } else if (this.stateMachine.step == Step.WORD) {
-                    let word = buffer.toString('utf8')
-                    this.stateMachine = new StatePrefix(word)
-                } else if (this.stateMachine.step == Step.PREFIX) {
-                    let prefix = buffer.readInt32BE()
-                    receiveCallback(this.stateMachine.word, prefix)
-                    this.stateMachine = new StateLength() // go back to first state
+                    let prefix = buffer.readInt32BE(4)
+                    this.stateMachine = new StateData(len, prefix)
+                } else if (this.stateMachine.step == Step.DATA) {
+                    let words = buffer.toString('utf8')
+                    receiveCallback(words, this.stateMachine.prefix)
+                    this.stateMachine = new StateHeader() // go back to first state
                 }
             }
         })
