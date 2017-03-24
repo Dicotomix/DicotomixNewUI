@@ -13,16 +13,14 @@ body {
 
 #top-part           { height: 55vh; overflow: auto; }
 #alphabet-container { height: 10vh; margin-top: 2vh; }
-#bottom-part        { max-height: 26vh; margin-top: 2vh;  }
+#bottom-part        { max-height: 26vh; margin-top: 2vh; }
 
-#alphabet
-{
+#alphabet {
     word-wrap: break-word;
     background-color: #297373;
 }
 
-#sentence, #current-word, #alphabet
-{
+#sentence, #words-list, #alphabet {
   font-size: calc(12px + 2.5vw);
   text-align: center;
 }
@@ -38,25 +36,22 @@ body {
     text-transform: capitalize;
 }*/
 
-#current-word {
+#words-list {
     margin: 10px 0;
     padding: 1vw;
 }
 
-.letter
-{
+.letter {
     display: inline-block;
     padding: 0.5vw;
     color: white;
 }
 
-.active
-{
+.active {
     color: #f4ac46 !important;
 }
 
-a
-{
+a {
     margin: 10px 0;
     height: 10vw;
     min-height: 50px !important;
@@ -68,8 +63,7 @@ a
     transition: .2s;
 }
 
-a:hover
-{
+a:hover {
     transition: .2s;
     background-repeat: no-repeat;
     background-size: contain;
@@ -82,8 +76,6 @@ a:hover
     background-position: left;
 }
 
-
-
 .button-right {
     background-position: right 30% center;
 }
@@ -91,14 +83,14 @@ a:hover
     background-position: right;
 }
 
-#discard-word       { background-image: url("../images/button1.svg"); }
-#discard-word:hover { background-image: url("../images/button1_pressed.svg"); }
-#delete-word        { background-image: url("../images/button2.svg"); }
-#delete-word:hover  { background-image: url("../images/button2_pressed.svg"); }
-#restart            { background-image: url("../images/button3.svg"); }
-#restart:hover      { background-image: url("../images/button3_pressed.svg"); }
-#validate           { background-image: url("../images/button4.svg"); }
-#validate:hover     { background-image: url("../images/button4_pressed.svg"); }
+#discard-all       { background-image: url("../images/discard_all.svg"); }
+#discard-all:hover { background-image: url("../images/discard_all_pressed.svg"); }
+#discard-one        { background-image: url("../images/button2.svg"); }
+#discard-one:hover  { background-image: url("../images/button2_pressed.svg"); }
+#spelling            { background-image: url("../images/spelling.svg"); }
+#spelling:hover      { background-image: url("../images/spelling_pressed.svg"); }
+#validate           { background-image: url("../images/validate.svg"); }
+#validate:hover     { background-image: url("../images/validate_pressed.svg"); }
 
 #next-word          { background-image: url("../images/right.svg"); }
 #next-word:hover    { background-image: url("../images/right_pressed.svg"); }

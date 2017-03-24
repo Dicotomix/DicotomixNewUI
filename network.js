@@ -45,6 +45,7 @@ const WordRequest = {
     LEFT: 2,
     RIGHT: 3,
     DISCARD: 4,
+    SPELLING: 5,
 }
 
 class Client {
