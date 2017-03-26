@@ -16,7 +16,7 @@ class StateHeader {
     constructor() { }
 
     get bufferLen() {
-        return 8
+        return 4
     }
 
     get step() {
@@ -73,11 +73,11 @@ class Client {
             let buffer
             while (null !== (buffer = this.client.read(this.stateMachine.bufferLen))) {
                 if (this.stateMachine.step == Step.HEADER) {
-                    let len = buffer.readInt32BE()
-                    let prefix = buffer.readInt32BE(4)
+                    const len = buffer.readInt16BE()
+                    const prefix = buffer.readInt16BE(2)
                     this.stateMachine = new StateData(len, prefix)
                 } else if (this.stateMachine.step == Step.DATA) {
-                    let words = buffer.toString('utf8')
+                    const words = buffer.toString('utf8')
                     receiveCallback(words, this.stateMachine.prefix)
                     this.stateMachine = new StateHeader() // go back to first state
                 }

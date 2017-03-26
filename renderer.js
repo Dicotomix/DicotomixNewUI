@@ -1,12 +1,8 @@
-
-const BEGIN_SPECIAL_STYLE = "<span style='color: #33cc33'>"
-const END_SPECIAL_STYLE = "</span>"
-
-const BEGIN_SPECIAL_SIZE = "<span style='font-size: calc(40px + 2.5vw)'>"
-const END_SPECIAL_SIZE = "</span>"
-
 const network = require('./network.js')
 const diacritics = require('./diacritics.js')
+const stringUtil = require('grapheme-js').stringUtil;
+
+const fabrice = true
 
 class Renderer {
     constructor(port, address) {
@@ -87,11 +83,16 @@ class Renderer {
                 html += '<li>'
 
             const word = this.words[i]
-            html +=
-                '<span class="prefix">' +
-                word.slice(0, this.prefixSize) +
-                '</span>' +
-                word.slice(this.prefixSize)
+            html += '<span class="prefix">'
+            if (fabrice)
+                html += word.slice(0, this.prefixSize)
+            else
+                html += stringUtil.sliceGraphemeClusters(word, 0, this.prefixSize)
+            html += '</span>'
+            if (fabrice)
+                html += word.slice(this.prefixSize)
+            else
+                html += stringUtil.sliceGraphemeClusters(word, this.prefixSize)
 
 
             if (i == this.boundedCursor)
@@ -104,18 +105,17 @@ class Renderer {
             $('#' + this.activeLetter).attr('class', 'letter')
         }
 
-        let withoutDiacritics = diacritics.removeDiacritics(this.words[0])
-        console.log('withoutDiacritics: ' + withoutDiacritics)
+        const withoutDiacritics = diacritics.removeDiacritics(this.words[0])
 
-        if(this.prefixSize < withoutDiacritics.length)
-        {
-            let letter = withoutDiacritics[this.prefixSize];
-            if(letter >= 'a' && letter <= 'z') // beware special chars
-                this.activeLetter = letter;
-        }
-        else
-        {
-            this.activeLetter = -1;
+        this.activeLetter = -1
+        let index = this.prefixSize
+        while (index < withoutDiacritics.length) {
+            const letter = withoutDiacritics[index]
+            if (letter >= 'a' && letter <= 'z') { // beware of special chars
+                this.activeLetter = letter
+                break
+            }
+            ++index
         }
 
         // set new active letter
@@ -140,7 +140,7 @@ function getIdByKey(key) {
 }
 
 $('body').on('keyup', (evt) => {
-    let key = evt.which || evt.keyCode
+    const key = evt.which || evt.keyCode
 
     if (key == 40) { // up arrow
         ++handler.cursor
@@ -150,7 +150,7 @@ $('body').on('keyup', (evt) => {
         return
     }
 
-    let id = getIdByKey(key)
+    const id = getIdByKey(key)
     if (id)
         $(id)[0].click()
 })
