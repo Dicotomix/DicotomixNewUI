@@ -2,8 +2,6 @@ const network = require('./network.js')
 const diacritics = require('./diacritics.js')
 const stringUtil = require('grapheme-js').stringUtil;
 
-const fabrice = true
-
 class Renderer {
     constructor(port, address) {
         this.client = new network.Client(port, address)
@@ -83,17 +81,10 @@ class Renderer {
                 html += '<li>'
 
             const word = this.words[i]
-            html += '<span class="prefix">'
-            if (fabrice)
-                html += word.slice(0, this.prefixSize)
-            else
-                html += stringUtil.sliceGraphemeClusters(word, 0, this.prefixSize)
-            html += '</span>'
-            if (fabrice)
-                html += word.slice(this.prefixSize)
-            else
-                html += stringUtil.sliceGraphemeClusters(word, this.prefixSize)
-
+            html += '<span class="prefix">' +
+                stringUtil.sliceGraphemeClusters(word, 0, this.prefixSize) +
+                '</span>' +
+                stringUtil.sliceGraphemeClusters(word, this.prefixSize)
 
             if (i == this.boundedCursor)
                 html += '</li>'
@@ -119,6 +110,7 @@ class Renderer {
         }
 
         // set new active letter
+        this.activeLetter = "'"
         if (this.activeLetter !== -1) {
             $("#" + this.activeLetter).attr('class', 'letter active')
         }
