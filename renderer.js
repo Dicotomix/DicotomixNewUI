@@ -110,7 +110,6 @@ class Renderer {
         }
 
         // set new active letter
-        this.activeLetter = "'"
         if (this.activeLetter !== -1) {
             $("#" + this.activeLetter).attr('class', 'letter active')
         }
