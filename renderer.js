@@ -75,23 +75,27 @@ class Renderer {
     }
 
     updateDOM() {
+        $('#words-list').removeClass("list-2 list-3 list-4 list-several")
+        if(this.words.length > 1)
+            $('#words-list').addClass("list-several list-"+ this.words.length)
+
         let html = ''
         for (let i = 0; i < this.words.length; ++i) {
-            if (i != 0)
-                html += '<br>'
             if (i == this.boundedCursor)
-                html += BEGIN_SPECIAL_SIZE
+                html += '<li class="selected-word">'
+            else
+                html += '<li>'
 
             const word = this.words[i]
             html +=
-                BEGIN_SPECIAL_STYLE +
+                '<span class="prefix">' +
                 word.slice(0, this.prefixSize) +
-                END_SPECIAL_STYLE +
+                '</span>' +
                 word.slice(this.prefixSize)
 
 
             if (i == this.boundedCursor)
-                html += END_SPECIAL_SIZE
+                html += '</li>'
         }
         $('#words-list').html(html)
 
@@ -102,12 +106,21 @@ class Renderer {
 
         let withoutDiacritics = diacritics.removeDiacritics(this.words[0])
         console.log('withoutDiacritics: ' + withoutDiacritics)
-        this.activeLetter = this.prefixSize >= withoutDiacritics.length ?
-            -1 : withoutDiacritics[this.prefixSize]
+
+        if(this.prefixSize < withoutDiacritics.length)
+        {
+            let letter = withoutDiacritics[this.prefixSize];
+            if(letter >= 'a' && letter <= 'z') // beware special chars
+                this.activeLetter = letter;
+        }
+        else
+        {
+            this.activeLetter = -1;
+        }
 
         // set new active letter
         if (this.activeLetter !== -1) {
-            $('#' + this.activeLetter).attr('class', 'letter active')
+            $("#" + this.activeLetter).attr('class', 'letter active')
         }
     }
 }
