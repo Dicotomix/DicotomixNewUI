@@ -62,7 +62,7 @@ class Client {
     start(connectCallback, receiveCallback) {
         this.client.connect(this.port, this.address, () => {
             console.log('connected')
-            connectCallback()
+            connectCallback() // last instruction in asynchronous code so exception safe
         })
 
         this.client.on('close', () => {
@@ -78,7 +78,15 @@ class Client {
                     this.stateMachine = new StateData(len, prefix)
                 } else if (this.stateMachine.step == Step.DATA) {
                     const words = buffer.toString('utf8')
-                    receiveCallback(words, this.stateMachine.prefix)
+                    try {
+                        /* receiveCallback could throw and unwind, so stateMachine as well as
+                           client internal buffer would be in an inconsistent state, leading
+                           to weird errors while decoding subsequent messages
+                        */
+                        receiveCallback(words, this.stateMachine.prefix)
+                    } catch(e) {
+                        console.log('Error while executing callback: ' + e)
+                    }
                     this.stateMachine = new StateHeader() // go back to first state
                 }
             }
