@@ -10,8 +10,8 @@ class Renderer {
         this.boundedCursor = 0
         this.prefixSize = 0
         this.activeLetter = -1
-        this.word_separe = ' '
-        this.writing_zone = '#sentence'
+        this.wordSeparator = ' '
+        this.writingArea = '#sentence'
     }
 
     get cursor() {
@@ -54,26 +54,40 @@ class Renderer {
         })
 
         $('#validate').on('click', () => {
-            $(this.writing_zone).html((_, html) => {
+            $(this.writingArea).html((_, html) => {
                 const word = this.words[this.boundedCursor]
-                return html.length == 0 ? word : html + this.word_separe + word
+
+                 // spelling mode through words dichotomy (the 2nd condition should be always true)
+                if (word[0] == '[' && !$('#top-part').hasClass('spelling-mode')) {
+                    $('#spelling').trigger('click')
+                    this.words[this.boundedCursor] = word.substr(1)
+                    $('#validate').trigger('click')
+                    return html
+                }
+
+                return html.length == 0 ? word : html + this.wordSeparator + word
             })
             this.client.requestWord(network.WordRequest.MIDDLE)
         })
 
         $('#spelling').on('click', () => {
-            if($("#top-part").hasClass("spelling-mode"))
-            { // quit spelling mode
-                this.word_separe = ' '
-                this.writing_zone = '#sentence'
-            }
-            else
-            {
+            if($('#top-part').hasClass('spelling-mode')) { // quit spelling mode
+                this.client.requestWord(network.WordRequest.SPELLING) // tell server to disable spelling
+
+                this.wordSeparator = ' '
+                this.words[this.boundedCursor] = $('#spelled').html()
+                this.writingArea = '#sentence'
+                $('#top-part').removeClass('spelling-mode')
+                $('#validate').trigger('click')
+            } else {
                 // enter spelling mode
+                this.wordSeparator = ''
+                this.writingArea = '#spelled'
+                $('#spelled').html('')
+                $('#top-part').addClass('spelling-mode')
+
                 this.client.requestWord(network.WordRequest.SPELLING)
-                this.word_separe = ''
-                this.writing_zone = '#spelled'
-                $("#top-part").addClass("spelling-mode")
+                this.client.requestWord(network.WordRequest.MIDDLE)
             }
         })
     }
