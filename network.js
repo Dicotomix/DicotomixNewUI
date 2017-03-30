@@ -95,6 +95,7 @@ class Client {
 
     requestWord(requestType) {
         this.client.write(Buffer.from([requestType]))
+        this.client.write(Buffer.from([0, 0]))
     }
 }
 
