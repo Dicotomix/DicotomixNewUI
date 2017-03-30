@@ -10,6 +10,8 @@ class Renderer {
         this.boundedCursor = 0
         this.prefixSize = 0
         this.activeLetter = -1
+        this.word_separe = ' '
+        this.writing_zone = '#sentence'
     }
 
     get cursor() {
@@ -52,11 +54,27 @@ class Renderer {
         })
 
         $('#validate').on('click', () => {
-            $('#sentence').html((_, html) => {
+            $(this.writing_zone).html((_, html) => {
                 const word = this.words[this.boundedCursor]
-                return html.length == 0 ? word : html + ' ' + word
+                return html.length == 0 ? word : html + this.word_separe + word
             })
             this.client.requestWord(network.WordRequest.MIDDLE)
+        })
+
+        $('#spelling').on('click', () => {
+            if($("#top-part").hasClass("spelling-mode"))
+            { // quit spelling mode
+                this.word_separe = ' '
+                this.writing_zone = '#sentence'
+            }
+            else
+            {
+                // enter spelling mode
+                this.client.requestWord(network.WordRequest.SPELLING)
+                this.word_separe = ''
+                this.writing_zone = '#spelled'
+                $("#top-part").addClass("spelling-mode")
+            }
         })
     }
 
@@ -69,9 +87,12 @@ class Renderer {
     }
 
     updateDOM() {
-        $('#words-list').removeClass("list-2 list-3 list-4 list-several")
-        if(this.words.length > 1)
+        $('#words-list').removeClass("list-2 list-3 list-4 list-several list-many")
+        if(this.words.length > 4)
+            $('#words-list').addClass("list-several list-many")
+        else if(this.words.length > 1)
             $('#words-list').addClass("list-several list-"+ this.words.length)
+
 
         let html = ''
         for (let i = 0; i < this.words.length; ++i) {
@@ -124,8 +145,10 @@ function getIdByKey(key) {
         return '#previous-word'
     else if (key == 39) // right arrow
         return '#next-word'
-    else if (key == 32) // space
+    else if (key == 32 || key == 13) // space or enter
         return '#validate'
+    else if (key == 97) // a
+        return '#spelling'
     else
         return null
 }

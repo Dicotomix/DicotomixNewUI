@@ -28,17 +28,20 @@ body {
     background-color: var(--color-blue);
 }
 
-#sentence, #words-list, #alphabet {
+#sentence, #spelled, #words-list, #alphabet {
   font-size: calc(15px + 2.2vw);
   text-align: center;
 }
 
-#sentence {
+#sentence, #spelled {
     max-height: 100%;
     overflow: auto;
     border: 0;
     outline: 0;
 }
+
+#top-part #spelled, #top-part.spelling-mode #sentence { display: none; }
+#top-part.spelling-mode #spelled { display: block; }
 
 /* warning: cursor selection does not work with ::first-letter
 #sentence::first-letter {
@@ -51,21 +54,26 @@ body {
     padding: 1vw;
     line-height: 2em;
 }
+
 #words-list.list-several {
     padding: 0;
     line-height: 1em;
 }
+
 #words-list.list-2 { line-height: 1.5em; }
 #words-list.list-3 { line-height: 1.4em; }
 #words-list.list-4 { line-height: 1.2em; }
 
+#words-list li { display: block; }
+#words-list.list-many li { display: inline-block; }
 
-
-#words-list li {
-    display: block;
-}
-li.selected-word {
+#words-list:not(.list-many) li.selected-word {
     font-size: calc(20px + 2.5vw);
+}
+
+.list-several li:before, .list-several li:after {
+    content: " — ";
+    color: transparent;
 }
 .list-several li.selected-word:before, .list-several li.selected-word:after { 
     content: " — ";
@@ -114,7 +122,7 @@ a:hover {
 #discard-one        { background-image: url("../images/button2.svg"); }
 #discard-one:hover  { background-image: url("../images/button2_pressed.svg"); }
 #spelling           { background-image: url("../images/spelling.svg"); }
-#spelling:hover     { background-image: url("../images/spelling_pressed.svg"); }
+#spelling:hover, #top-part.spelling-mode #spelling     { background-image: url("../images/spelling_pressed.svg"); }
 #validate           { background-image: url("../images/validate.svg"); }
 #validate:hover     { background-image: url("../images/validate_pressed.svg"); }
 
