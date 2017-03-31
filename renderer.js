@@ -93,6 +93,11 @@ class Renderer {
     }
 
     wordsReceived(words, prefix) {
+        if (prefix == -1) {
+            $('#spelling').trigger('click')
+            return
+        }
+
         this.boundedCursor = 0
         this.prefixSize = prefix
         this.words = words.split('\n')
