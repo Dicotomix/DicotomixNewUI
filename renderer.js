@@ -46,6 +46,8 @@ class Renderer {
                 )
             }
             $('#alphabet').slideDown(200)
+
+            $('#sentence').html('').attr("contenteditable", "true")
             $('#restart').trigger('click')
         })
 
