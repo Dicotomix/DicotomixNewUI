@@ -48,6 +48,7 @@ const WordRequest = {
     SPELLING: 5,
     USERNAMES: 6,
     LOGIN: 7,
+    CUSTOM_WORD: 8,
 }
 
 class Client {

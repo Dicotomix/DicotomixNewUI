@@ -34,6 +34,9 @@ class Renderer {
             } // receive callback
         )
 
+        $('.username').on('click', () => {
+
+        })
 
         $('#next-word').on('click', () => {
             this.client.requestWord(network.WordRequest.RIGHT)
@@ -108,6 +111,13 @@ class Renderer {
 
                 this.wordSeparator = ' '
                 this.words[this.boundedCursor] = $('#spelled').html()
+
+                // tell server to add a new word
+                this.client.requestWord(
+                    network.WordRequest.CUSTOM_WORD,
+                    this.words[this.boundedCursor]
+                )
+
                 this.writingArea = '#sentence'
                 this.prefixClass = 'prefix'
                 $('#top-part').removeClass('spelling-mode')
