@@ -21,11 +21,7 @@ class Renderer {
     }
 
     set cursor(val) {
-        if (val < 0)
-            val = 0
-        if (val >= this.words.length)
-            val = this.words.length - 1
-        this.boundedCursor = val
+        this.boundedCursor = (val + this.words.length) % this.words.length
         this.updateDOM()
     }
 
@@ -38,9 +34,6 @@ class Renderer {
             } // receive callback
         )
 
-        $('.username').on('click', () => {
-            
-        })
 
         $('#next-word').on('click', () => {
             this.client.requestWord(network.WordRequest.RIGHT)
@@ -64,11 +57,19 @@ class Renderer {
 
         $('#validate').on('click', () => {
             $(this.writingArea).html((_, html) => {
-                const word = this.words[this.boundedCursor]
+                let word = this.words[this.boundedCursor]
 
                 if(this.login == '')
                 {
                     this.login = word
+                    if(word == "[new]")
+                    {
+                        let name = $(".newUserInput input").val()
+                        if(name == "")
+                            return
+                        else
+                            word = diacritics.removeDiacritics(name)
+                    }
                     this.client.requestWord(network.WordRequest.LOGIN, word)
                     $('#words-list').html('Bienvenue ' + word)
                     $('#username').html("Bonjour <span>" + word + "</span> !")
@@ -147,12 +148,25 @@ class Renderer {
 
 
         let html = ''
+        let focus = 'body'
         for (let i = 0; i < this.words.length; ++i) {
             const word = this.words[i]
             let wordClass = ""
             let isSpelling = 0
             if (i == this.boundedCursor)
                 wordClass += "selected-word "
+            
+            if(word == "[new]")
+            {
+                html +=
+                    '<li class="'+ wordClass +' newUserInput">' +
+                        '<input type="text" placeholder="Nouvel utilisateur" '+ (i == this.boundedCursor ? "" : "disabled") +'>'
+                    '</li>'
+                if (i == this.boundedCursor)
+                    focus = '.newUserInput input' 
+                continue
+            }
+            
             if(word[0] == '[')
             {
                 isSpelling = 1
@@ -168,6 +182,12 @@ class Renderer {
                 '</li>'
         }
         $('#words-list').html(html)
+        $('.newUserInput input').off('focus')
+       /* $('.newUserInput input').on('focus', () => {
+            console.log("bon")
+            this.cursor = this.words.length - 1
+        })*/
+        $(focus).focus()
 
         // clear last active letter
         if (this.activeLetter !== -1) {

@@ -67,9 +67,10 @@ body.prelog .button-left, body.prelog .button-right { visibility: hidden; }
 #words-list.list-2 { line-height: 1.5em; }
 #words-list.list-3 { line-height: 1.4em; }
 #words-list.list-4 { line-height: 1.2em; }
+body.prelog #words-list.list-several { line-height: 1.2em; }
 
 #words-list li { display: block; }
-#words-list.list-many li { display: inline-block; }
+body:not(.prelog) #words-list.list-many li { display: inline-block; }
 
 #words-list li.spelling {
     color: var(--color-orange); 
@@ -87,6 +88,18 @@ body.prelog .button-left, body.prelog .button-right { visibility: hidden; }
 .list-several li.selected-word:before, .list-several li.selected-word:after { 
     content: " — ";
     color: var(--color-grey);
+}
+
+.newUserInput input {
+    text-align: center;
+    color: var(--color-blue);
+    border-radius: 100px;
+    border: 1px solid var(--color-blue);
+    outline: 0;
+}
+.newUserInput input::placeholder {
+    font-weight: normal;
+    font-style: italic;
 }
 
 .prefix {
