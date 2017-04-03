@@ -24,6 +24,7 @@ body {
 #bottom-part        { max-height: 31vh; margin-top: 2vh; }
 
 #alphabet {
+    display: none;
     word-wrap: break-word;
     background-color: var(--color-blue);
 }

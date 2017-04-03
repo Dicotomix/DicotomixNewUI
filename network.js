@@ -96,8 +96,10 @@ class Client {
     }
 
     requestWord(requestType, requestData) {
+        if(typeof requestData === "undefined")
+            requestData = ""
         this.client.write(Buffer.from([requestType]))
-        buf = Buffer.alloc(2 + requestData.length)
+        let buf = Buffer.alloc(2 + requestData.length)
         buf.writeInt16BE(requestData.length)
         buf.write(requestData, 2)
         this.client.write(buf)

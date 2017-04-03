@@ -30,9 +30,24 @@ class Renderer {
 
     start() {
         this.client.start(
-            () => { this.client.requestWord(network.WordRequest.MIDDLE) }, // connect callback
-            (words, prefix) => { this.wordsReceived(words, prefix) } // receive callback
+            () => { this.client.requestWord(network.WordRequest.USERNAMES) }, // connect callback
+            (words, prefix) =>
+            {
+                this.wordsReceived(words, prefix)
+            } // receive callback
         )
+
+        $('.username').on('click', () => {
+            this.client.requestWord(network.WordRequest.LOGIN, this.value)
+            $('#alphabet').html('');
+            for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
+                $('#alphabet').append(
+                    '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
+                )
+            }
+            $('#alphabet').slideDown(200)
+            $('#restart').trigger('click')
+        })
 
         $('#next-word').on('click', () => {
             this.client.requestWord(network.WordRequest.RIGHT)
