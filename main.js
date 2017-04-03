@@ -10,7 +10,7 @@ const url = require('url')
 let mainWindow
 
 function createWindow() {
-    mainWindow = new BrowserWindow({ width: 1200, height: 600 })
+    mainWindow = new BrowserWindow({ width: 1200, height: 600, icon: "images/icon.svg" })
     mainWindow.maximize()
 
     mainWindow.loadURL(url.format({

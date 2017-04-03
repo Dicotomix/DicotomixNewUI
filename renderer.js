@@ -13,6 +13,7 @@ class Renderer {
         this.wordSeparator = ' '
         this.writingArea = '#sentence'
         this.prefixClass = 'prefix'
+        this.login = ''
     }
 
     get cursor() {
@@ -38,17 +39,7 @@ class Renderer {
         )
 
         $('.username').on('click', () => {
-            this.client.requestWord(network.WordRequest.LOGIN, this.value)
-            $('#alphabet').html('');
-            for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
-                $('#alphabet').append(
-                    '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
-                )
-            }
-            $('#alphabet').slideDown(200)
-
-            $('#sentence').html('').attr("contenteditable", "true")
-            $('#restart').trigger('click')
+            
         })
 
         $('#next-word').on('click', () => {
@@ -75,6 +66,23 @@ class Renderer {
             $(this.writingArea).html((_, html) => {
                 const word = this.words[this.boundedCursor]
 
+                if(this.login == '')
+                {
+                    this.login = word
+                    this.client.requestWord(network.WordRequest.LOGIN, word)
+                    $('#alphabet').html('');
+                    for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
+                        $('#alphabet').append(
+                            '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
+                        )
+                    }
+                    $('#alphabet').slideDown(200)
+
+                    $('#sentence').html('').attr("contenteditable", "true")
+                    $('#restart').trigger('click')
+
+                    return ""
+                }
                  // spelling mode through words dichotomy (the 2nd condition should be always true)
                 if (word[0] == '[' && !$('#top-part').hasClass('spelling-mode')) {
                     $('#spelling').trigger('click')
