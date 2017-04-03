@@ -97,7 +97,10 @@ class Client {
 
     requestWord(requestType, requestData) {
         this.client.write(Buffer.from([requestType]))
-        this.client.write(Buffer.from([requestData.length, requestData]))
+        buf = Buffer.alloc(2 + requestData.length)
+        buf.writeInt16BE(requestData.length)
+        buf.write(requestData, 2)
+        this.client.write(buf)
     }
 }
 
