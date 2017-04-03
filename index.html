@@ -41,8 +41,6 @@
         </div>
 
         <script>
-            window.$ = window.jQuery = require('jquery');
-
             // fill alpha container
             $('#alphabet').html('');
             for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
@@ -50,8 +48,6 @@
                     '<div class = "letter" id = "' + l + '">' + l.toUpperCase() + '</div>'
                 )
             }
-
-            require('./renderer.js')
         </script>
     </body>
 </html>

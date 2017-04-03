@@ -12,6 +12,7 @@ class Renderer {
         this.activeLetter = -1
         this.wordSeparator = ' '
         this.writingArea = '#sentence'
+        this.prefixClass = 'prefix'
     }
 
     get cursor() {
@@ -77,12 +78,14 @@ class Renderer {
                 this.wordSeparator = ' '
                 this.words[this.boundedCursor] = $('#spelled').html()
                 this.writingArea = '#sentence'
+                this.prefixClass = 'prefix'
                 $('#top-part').removeClass('spelling-mode')
                 $('#validate').trigger('click')
             } else {
                 // enter spelling mode
                 this.wordSeparator = ''
                 this.writingArea = '#spelled'
+                this.prefixClass = ''
                 $('#spelled').html('')
                 $('#top-part').addClass('spelling-mode')
 
@@ -121,7 +124,7 @@ class Renderer {
                 html += '<li>'
 
             const word = this.words[i]
-            html += '<span class="prefix">' +
+            html += '<span class="' + prefixClass + '">' +
                 stringUtil.sliceGraphemeClusters(word, 0, this.prefixSize) +
                 '</span>' +
                 stringUtil.sliceGraphemeClusters(word, this.prefixSize)

@@ -46,6 +46,8 @@ const WordRequest = {
     RIGHT: 3,
     DISCARD: 4,
     SPELLING: 5,
+    USERNAMES: 6,
+    LOGIN: 7,
 }
 
 class Client {
@@ -93,9 +95,9 @@ class Client {
         })
     }
 
-    requestWord(requestType) {
+    requestWord(requestType, requestData) {
         this.client.write(Buffer.from([requestType]))
-        this.client.write(Buffer.from([0, 0]))
+        this.client.write(Buffer.from([requestData.length, requestData]))
     }
 }
 
