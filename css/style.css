@@ -18,13 +18,16 @@ body {
 
 /* button colors: f4ac46 (orange), 292f36 (black), 297373 (blue) */
 
-
 #top-part           { height: 50vh; overflow: auto; }
 #alphabet-container { height: 10vh; margin-top: 2vh; }
 #bottom-part        { max-height: 31vh; margin-top: 2vh; }
 
+body.prelog #top-part { height: 30vh; }
+body.prelog #alphabet { display: none; }
+body.prelog #bottom-part { margin-height: 50vh; }
+body.prelog .button-left, body.prelog .button-right { visibility: hidden; }
+
 #alphabet {
-    display: none;
     word-wrap: break-word;
     background-color: var(--color-blue);
 }
@@ -67,6 +70,11 @@ body {
 
 #words-list li { display: block; }
 #words-list.list-many li { display: inline-block; }
+
+#words-list li.spelling {
+    color: var(--color-orange); 
+    font-style: italic;
+}
 
 #words-list:not(.list-many) li.selected-word {
     font-size: calc(20px + 2.5vw);
@@ -111,6 +119,15 @@ a:hover {
     transition: .2s;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.top-info {
+    margin-top: 10px;
+    text-align: center;
+    color: var(--color-grey);
+}
+.top-info span {
+    color: var(--color-orange);
 }
 
 .button-left        { background-position: left 30% center; }

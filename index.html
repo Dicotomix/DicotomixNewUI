@@ -6,31 +6,31 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
-    <body>
+    <body class="prelog">
         <div class="container-fluid">
             <section id="top-part" class="row"> <!-- add class .spelling-mode to -->
                 <div class="col-xs-12 col-sm-8 col-sm-push-2" id="sentence" spellcheck="false">Ouvrir une session</div>
                 <div class="col-xs-12 col-sm-8 col-sm-push-2" id="spelled" contenteditable spellcheck="false"></div>
 
                 <nav class="col-xs-6 col-sm-2 col-sm-pull-8">
+                    <div id="username" class="row top-info"></div>
                     <div class="row">
-                        <a id="discard-all" class="col-xs-12 button-left"></a>
-                        <a id="discard-one" class="col-xs-12 button-left"></a>
+                        <a id="discard-all" class="col-xs-12 button-left" title="Recommencer au milieu"></a>
+                        <a id="discard-one" class="col-xs-12 button-left" title="Annuler un coup"></a>
                     </div>
                 </nav>
                 <nav class="col-xs-6 col-sm-2">
+                    <div id="date" class="row top-info"></div>
                     <div class="row">
-                        <a id="spelling" class="col-xs-12 button-right"></a>
-                        <a id="validate" class="col-xs-12 button-right"></a>
+                        <a id="spelling" class="col-xs-12 button-right" title="Epellation"></a>
+                        <a id="validate" class="col-xs-12 button-right" title="Valider le mot"></a>
                     </div>
                 </nav>
 
             </section>
 
             <section id="alphabet-container" class="row">
-                <div id="alphabet">
-                    <!-- will be filled by the script below -->
-                </div>
+                <div id="alphabet"></div>
             </section>
 
             <section id="bottom-part" class="row">

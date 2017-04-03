@@ -70,6 +70,9 @@ class Renderer {
                 {
                     this.login = word
                     this.client.requestWord(network.WordRequest.LOGIN, word)
+                    $('#words-list').html('Bienvenue ' + word)
+                    $('#username').html("Bonjour <span>" + word + "</span> !")
+                    $('#date').html((new Date()).toLocaleDateString())
                     $('#alphabet').html('');
                     for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
                         $('#alphabet').append(
@@ -77,6 +80,8 @@ class Renderer {
                         )
                     }
                     $('#alphabet').slideDown(200)
+                    $('body').removeClass("prelog")
+
 
                     $('#sentence').html('').attr("contenteditable", "true")
                     $('#restart').trigger('click')
@@ -143,19 +148,24 @@ class Renderer {
 
         let html = ''
         for (let i = 0; i < this.words.length; ++i) {
-            if (i == this.boundedCursor)
-                html += '<li class="selected-word">'
-            else
-                html += '<li>'
-
             const word = this.words[i]
-            html += '<span class="' + this.prefixClass + '">' +
-                stringUtil.sliceGraphemeClusters(word, 0, this.prefixSize) +
-                '</span>' +
-                stringUtil.sliceGraphemeClusters(word, this.prefixSize)
-
+            let wordClass = ""
+            let isSpelling = 0
             if (i == this.boundedCursor)
-                html += '</li>'
+                wordClass += "selected-word "
+            if(word[0] == '[')
+            {
+                isSpelling = 1
+                wordClass += "spelling "
+            }
+
+            html +=
+                '<li class="'+ wordClass +'">' +
+                    '<span class="' + this.prefixClass + '">' +
+                        stringUtil.sliceGraphemeClusters(word.substr(isSpelling), 0, this.prefixSize) +
+                    '</span>' +
+                    stringUtil.sliceGraphemeClusters(word.substr(isSpelling), this.prefixSize) +
+                '</li>'
         }
         $('#words-list').html(html)
 
