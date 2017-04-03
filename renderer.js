@@ -141,7 +141,7 @@ class Renderer {
                 html += '<li>'
 
             const word = this.words[i]
-            html += '<span class="' + prefixClass + '">' +
+            html += '<span class="' + this.prefixClass + '">' +
                 stringUtil.sliceGraphemeClusters(word, 0, this.prefixSize) +
                 '</span>' +
                 stringUtil.sliceGraphemeClusters(word, this.prefixSize)
