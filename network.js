@@ -97,11 +97,13 @@ class Client {
     }
 
     requestWord(requestType, requestData) {
-        if(typeof requestData === "undefined")
-            requestData = ""
+        if(typeof requestData === 'undefined')
+            requestData = ''
+        const utf8len = Buffer.from(requestData).length
+
         this.client.write(Buffer.from([requestType]))
-        let buf = Buffer.alloc(2 + requestData.length)
-        buf.writeInt16BE(requestData.length)
+        let buf = Buffer.alloc(2 + utf8len)
+        buf.writeInt16BE(utf8len)
         buf.write(requestData, 2)
         this.client.write(buf)
     }

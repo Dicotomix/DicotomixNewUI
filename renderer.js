@@ -28,8 +28,7 @@ class Renderer {
     start() {
         this.client.start(
             () => { this.client.requestWord(network.WordRequest.USERNAMES) }, // connect callback
-            (words, prefix) =>
-            {
+            (words, prefix) => {
                 this.wordsReceived(words, prefix)
             } // receive callback
         )
@@ -62,20 +61,18 @@ class Renderer {
             $(this.writingArea).html((_, html) => {
                 let word = this.words[this.boundedCursor]
 
-                if(this.login == '')
-                {
+                if(this.login == '') {
                     this.login = word
-                    if(word == "[new]")
-                    {
-                        let name = $(".newUserInput input").val()
-                        if(name == "")
+                    if(word == '[new]') {
+                        let name = $('.newUserInput input').val()
+                        if(name == '')
                             return
                         else
                             word = diacritics.removeDiacritics(name)
                     }
                     this.client.requestWord(network.WordRequest.LOGIN, word)
                     $('#words-list').html('Bienvenue ' + word)
-                    $('#username').html("Bonjour <span>" + word + "</span> !")
+                    $('#username').html('Bonjour <span>' + word + '</span> !')
                     $('#date').html((new Date()).toLocaleDateString())
                     $('#alphabet').html('');
                     for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
@@ -84,10 +81,10 @@ class Renderer {
                         )
                     }
                     $('#alphabet').slideDown(200)
-                    $('body').removeClass("prelog")
+                    $('body').removeClass('prelog')
 
 
-                    $('#sentence').html('').attr("contenteditable", "true")
+                    $('#sentence').html('').attr('contenteditable', 'true')
                     $('#restart').trigger('click')
 
                     return ""
@@ -154,7 +151,7 @@ class Renderer {
         if(this.words.length > 4)
             $('#words-list').addClass("list-several list-many")
         else if(this.words.length > 1)
-            $('#words-list').addClass("list-several list-"+ this.words.length)
+            $('#words-list').addClass("list-several list-" + this.words.length)
 
 
         let html = ''
@@ -165,22 +162,22 @@ class Renderer {
             let isSpelling = 0
             if (i == this.boundedCursor)
                 wordClass += "selected-word "
-            
-            if(word == "[new]")
-            {
+
+            if(word == '[new]') {
                 html +=
                     '<li class="'+ wordClass +' newUserInput">' +
-                        '<input type="text" placeholder="Nouvel utilisateur" '+ (i == this.boundedCursor ? "" : "disabled") +'>'
+                    '<input type="text" placeholder="Nouvel utilisateur" ' +
+                    (i == this.boundedCursor ? '' : 'disabled') + '>' +
                     '</li>'
                 if (i == this.boundedCursor)
-                    focus = '.newUserInput input' 
+                    focus = '.newUserInput input'
                 continue
             }
-            
+
             if(word[0] == '[')
             {
                 isSpelling = 1
-                wordClass += "spelling "
+                wordClass += 'spelling '
             }
 
             html +=
@@ -193,10 +190,6 @@ class Renderer {
         }
         $('#words-list').html(html)
         $('.newUserInput input').off('focus')
-       /* $('.newUserInput input').on('focus', () => {
-            console.log("bon")
-            this.cursor = this.words.length - 1
-        })*/
         $(focus).focus()
 
         // clear last active letter
