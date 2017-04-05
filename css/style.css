@@ -22,7 +22,7 @@ body {
 #alphabet-container { height: 10vh; margin-top: 2vh; }
 #bottom-part        { max-height: 31vh; margin-top: 2vh; }
 
-body.prelog #top-part { height: 30vh; }
+body.prelog #top-part { height: 30vh; overflow: hidden; }
 body.prelog #alphabet { display: none; }
 body.prelog #bottom-part { margin-height: 50vh; }
 body.prelog .button-left, body.prelog .button-right { visibility: hidden; }
@@ -148,16 +148,32 @@ a:hover {
 .button-right       { background-position: right 30% center; }
 .button-right:hover { background-position: right; }
 
-#discard-all        { background-image: url("../images/discard_all.svg"); }
-#discard-all:hover  { background-image: url("../images/discard_all_pressed.svg"); }
-#discard-one        { background-image: url("../images/button2.svg"); }
-#discard-one:hover  { background-image: url("../images/button2_pressed.svg"); }
+#next-word          { background-image: url("../images/right.svg"); }
+#next-word:hover    { background-image: url("../images/right_pressed.svg"); }
+#previous-word      { background-image: url("../images/left.svg"); }
+#previous-word:hover{ background-image: url("../images/left_pressed.svg"); }/* */
+
 #spelling           { background-image: url("../images/spelling.svg"); }
 #spelling:hover, #top-part.spelling-mode #spelling     { background-image: url("../images/spelling_pressed.svg"); }
 #validate           { background-image: url("../images/validate.svg"); }
 #validate:hover     { background-image: url("../images/validate_pressed.svg"); }
 
-#next-word          { background-image: url("../images/right.svg"); }
-#next-word:hover    { background-image: url("../images/right_pressed.svg"); }
-#previous-word      { background-image: url("../images/left.svg"); }
-#previous-word:hover{ background-image: url("../images/left_pressed.svg"); }/* */
+#discard-all,
+#discard-one        { background-image: url("../images/discard_all.svg"); }
+#discard-all:hover,
+#discard-one:hover  { background-image: url("../images/discard_all_pressed.svg"); }
+#discard-one:before {
+    content: "1";
+    display: inline-block;
+    position: relative;
+    top: -1vw;
+    width: 3.4vw;
+    height: 3.4vw;
+    min-width: 16px !important;
+    min-height: 16px !important;
+    background: var(--color-orange);
+    border-radius: 100px;
+    color: white;
+    text-align: center;
+    font-size: calc(10px + 1.4vw);
+}
