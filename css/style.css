@@ -1,5 +1,7 @@
 :root{
     --color-orange: #f4ac46;
+    --color-orange-light: #fc6;
+    --color-orange-lighter: #fe9;
     --color-black: #292f36;
     --color-blue: #297373;
     --color-green: #3c3;
@@ -18,8 +20,8 @@ body {
 
 /* button colors: f4ac46 (orange), 292f36 (black), 297373 (blue) */
 
-#top-part           { height: 50vh; overflow: auto; }
-#alphabet-container { height: 10vh; margin-top: 2vh; }
+#top-part           { height: 50vh; overflow: auto; padding-bottom: 2vh; }
+#alphabet-container { height: 10vh; }
 #bottom-part        { max-height: 31vh; margin-top: 2vh; }
 
 body.prelog #top-part { height: 30vh; overflow: hidden; }
@@ -44,6 +46,8 @@ body.prelog .button-left, body.prelog .button-right { visibility: hidden; }
     outline: 0;
 }
 
+#top-part { transition: .4s; }
+#top-part.spelling-mode { background-color: var(--color-orange-lighter); transition: .4s; }
 #top-part #spelled, #top-part.spelling-mode #sentence { display: none; }
 #top-part.spelling-mode #spelled { display: block; }
 
@@ -154,7 +158,8 @@ a:hover {
 #previous-word:hover{ background-image: url("../images/left_pressed.svg"); }/* */
 
 #spelling           { background-image: url("../images/spelling.svg"); }
-#spelling:hover, #top-part.spelling-mode #spelling     { background-image: url("../images/spelling_pressed.svg"); }
+#spelling:hover     { background-image: url("../images/spelling_pressed.svg"); }
+#top-part.spelling-mode #spelling     { background-image: url("../images/spelling_pressed_orange.svg"); }
 #validate           { background-image: url("../images/validate.svg"); }
 #validate:hover     { background-image: url("../images/validate_pressed.svg"); }
 
