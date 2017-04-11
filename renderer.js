@@ -97,6 +97,9 @@ class Renderer {
                     return html
                 }
 
+                if ($('#top-part').hasClass('spelling-mode'))
+                    this.client.requestWord(network.WordRequest.FEEDBACK, word)
+
                 return html.length == 0 ? word : html + this.wordSeparator + word
             })
             this.client.requestWord(network.WordRequest.MIDDLE)

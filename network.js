@@ -49,6 +49,7 @@ const WordRequest = {
     USERNAMES: 6,
     LOGIN: 7,
     CUSTOM_WORD: 8,
+    FEEDBACK: 9,
 }
 
 class Client {
