@@ -252,4 +252,4 @@ $('body').on('keyup', (evt) => {
         $(id)[0].click()
 })
 
-$('#sentence').on('keyup', (e) => { e.stopPropagation() })
+$('#sentence, #spelled').on('keyup', (e) => { e.stopPropagation() })
