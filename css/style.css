@@ -20,22 +20,34 @@ body {
 
 /* button colors: f4ac46 (orange), 292f36 (black), 297373 (blue) */
 
-#top-part           { height: 50vh; overflow: auto; padding-bottom: 2vh; }
+#top-part           { height: 35vh; overflow: auto; overflow-x: hidden; padding-bottom: 2vh; }
 #alphabet-container { height: 10vh; }
-#bottom-part        { max-height: 31vh; margin-top: 2vh; }
+#bottom-part        { max-height: 46vh; margin-top: 2vh; }
 
 body.prelog #top-part { height: 30vh; overflow: hidden; }
 body.prelog #alphabet { display: none; }
 body.prelog #bottom-part { margin-height: 50vh; }
 body.prelog .button-left, body.prelog .button-right { visibility: hidden; }
 
+.top-info {
+    margin-top: 10px;
+    text-align: center;
+    color: var(--color-grey);
+}
+.top-info span {
+    color: var(--color-orange);
+}
+
+
 #alphabet {
     word-wrap: break-word;
     background-color: var(--color-blue);
+    font-size: calc(15px + 2.2vw);
+    text-align: center;
 }
 
-#sentence, #spelled, #words-list, #alphabet {
-  font-size: calc(15px + 2.2vw);
+#sentence, #spelled, #words-list {
+  font-size: calc(20px + 4vw);
   text-align: center;
 }
 
@@ -44,7 +56,12 @@ body.prelog .button-left, body.prelog .button-right { visibility: hidden; }
     overflow: auto;
     border: 0;
     outline: 0;
+    line-height: 1.17em;
 }
+
+/*#words-list:not(.list-many) li.selected-word {
+    font-size: calc(20px + 2.5vw);
+}*/
 
 #top-part { transition: .4s; }
 #top-part.spelling-mode { background-color: var(--color-orange-lighter); transition: .4s; }
@@ -81,10 +98,6 @@ body:not(.prelog) #words-list.list-many li { display: inline-block; }
     font-style: italic;
 }
 
-#words-list:not(.list-many) li.selected-word {
-    font-size: calc(20px + 2.5vw);
-}
-
 .list-several li:before, .list-several li:after {
     content: " — ";
     color: transparent;
@@ -117,12 +130,12 @@ body:not(.prelog) #words-list.list-many li { display: inline-block; }
 }
 
 .active {
-    color: var(--color-orange) !important;
+    background-color: var(--color-orange);
 }
 
 a {
-    margin: 10px 0;
-    height: 10vw;
+    margin: 1vh 0;
+    height: 12vh;
     min-height: 50px !important;
     max-height: 100px !important;
     background-repeat: no-repeat;
@@ -138,14 +151,7 @@ a:hover {
     background-size: contain;
 }
 
-.top-info {
-    margin-top: 10px;
-    text-align: center;
-    color: var(--color-grey);
-}
-.top-info span {
-    color: var(--color-orange);
-}
+#next-word, #previous-word { margin: 10vh 0; }
 
 .button-left        { background-position: left 30% center; }
 .button-left:hover  { background-position: left; }

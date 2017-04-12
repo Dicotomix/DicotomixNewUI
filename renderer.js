@@ -72,7 +72,7 @@ class Renderer {
                     }
                     this.client.requestWord(network.WordRequest.LOGIN, word)
                     $('#words-list').html('Bienvenue ' + word)
-                    $('#username').html('Bonjour <span>' + word + '</span> !')
+                    $('#username').html('Session <span>' + word + '</span>')
                     $('#date').html((new Date()).toLocaleDateString())
                     $('#alphabet').html('');
                     for (let l = 'a'; l <= 'z'; l = String.fromCharCode(l.charCodeAt() + 1)) {
@@ -169,7 +169,7 @@ class Renderer {
             if(word == '[new]') {
                 html +=
                     '<li class="'+ wordClass +' newUserInput">' +
-                    '<input type="text" placeholder="Nouvel utilisateur" ' +
+                    '<input type="text" placeholder="Nouvel utilisateur" size=16 ' +
                     (i == this.boundedCursor ? '' : 'disabled') + '>' +
                     '</li>'
                 if (i == this.boundedCursor)
